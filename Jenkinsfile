@@ -30,7 +30,7 @@ pipeline {
               }
             }
             steps {
-              sh "/usr/local/bin/kubectl get all --all-namespaces"
+              sh "/usr/local/bin/kubectl apply -f helloworld.yaml"
             }
         }
     }
