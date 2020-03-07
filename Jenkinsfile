@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Stage 1') {
+        stage('Build Image') {
             agent {
               kubernetes {
                 label 'kaniko'
@@ -18,6 +18,19 @@ pipeline {
                     --cache=true \
                     --insecure=true \
                     --destination=registry.container-registry:5000/helloworld:latest"
+            }
+        }
+        stage('Deploy Stage') {
+            agent {
+              kubernetes {
+                label 'kubectl'
+                idleMinutes 5
+                yamlFile 'kubectl-pod.yaml'
+                defaultContainer 'kubectl'
+              }
+            }
+            steps {
+              sh "kubectl get all --all-namespace"
             }
         }
     }
