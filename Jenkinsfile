@@ -30,7 +30,7 @@ pipeline {
               }
             }
             steps {
-              sh "/usr/local/bin/kubectl get all --all-namespace"
+              sh "/usr/local/bin/kubectl get all --all-namespaces"
             }
         }
     }
