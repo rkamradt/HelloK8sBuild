@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 spec:
   containers:
-    - name: kaniko
+    - name: kubectl
       image: bitnami/kubectl:1.17
       command: ["tail", "-f", "/dev/null"]
       imagePullPolicy: Always
