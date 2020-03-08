@@ -5,7 +5,7 @@ pipeline {
           agent {
             kubernetes {
               label 'kaniko'
-              idleMinutes 5
+              idleMinutes 1
               yamlFile 'build-pod.yaml'
               defaultContainer 'kaniko'
             }
@@ -37,7 +37,7 @@ pipeline {
           agent {
             kubernetes {
               label 'kaniko'
-              idleMinutes 5
+              idleMinutes 1
               yamlFile 'build-pod.yaml'
               defaultContainer 'kaniko'
             }
