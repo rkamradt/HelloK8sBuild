@@ -3,7 +3,7 @@ kind: Job
 metadata:
   name: helloworldtest
 spec:
-  backoffLimit: 6 # number of retries before throwing error
+  backoffLimit: 2 # number of retries before throwing error
   activeDeadlineSeconds: 2400 # time to allow job to run
   template:
     metadata:
