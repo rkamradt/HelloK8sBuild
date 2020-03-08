@@ -17,7 +17,7 @@ pipeline {
                     --verbosity=debug \
                     --cache=true \
                     --insecure=true \
-                    --destination=registry.container-registry:5000/helloworld:latest"
+                    --destination=localhost:32000/helloworld:latest"
             }
         }
         stage('Deploy Stage') {
