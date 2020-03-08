@@ -15,3 +15,6 @@ spec:
       containers:
         - name: helloworldtest
           image: 127.0.0.1:32000/helloworldtest:latest
+          env:
+           - name: HELLO_URL
+             value: "http://test-service"
