@@ -30,7 +30,7 @@ pipeline {
             }
           }
           steps {
-            sh "/usr/local/bin/kubectl apply -f helloworld.yaml; sleep 60"
+            sh "/usr/local/bin/kubectl apply -f helloworld.yaml; sleep 120"
           }
       }
       stage('Build Test Image') {
