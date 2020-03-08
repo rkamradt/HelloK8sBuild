@@ -5,10 +5,9 @@ spec:
     - name: kaniko
       image: gcr.io/kaniko-project/executor:debug
       command: ["tail", "-f", "/dev/null"]
-      imagePullPolicy: Always
       resources:
         requests:
-          memory: "1Gi"
+          memory: "256Mi"
           cpu: "125m"
         limits:
-          memory: "1Gi"
+          memory: "256Mi"
