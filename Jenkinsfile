@@ -64,6 +64,7 @@ pipeline {
           steps {
             sh "/usr/local/bin/kubectl delete -f helloworldtest.yaml"
             sh "/usr/local/bin/kubectl apply -f helloworldtest.yaml"
+            sh "/usr/local/bin/kubectl wait --for=condition=complete --timeout=600s job/helloworldtest"
           }
       }
     }
