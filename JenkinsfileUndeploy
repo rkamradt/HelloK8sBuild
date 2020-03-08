@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+    stages {
+        stage('Undeploy Stage') {
+            agent {
+              kubernetes {
+                label 'kubectl'
+                idleMinutes 5
+                yamlFile 'kubectl-pod.yaml'
+                defaultContainer 'kubectl'
+              }
+            }
+            steps {
+              sh "/usr/local/bin/kubectl delete -f helloworld.yaml"
+            }
+        }
+    }
+}
