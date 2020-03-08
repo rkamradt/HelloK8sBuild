@@ -5,10 +5,9 @@ spec:
     - name: kubectl
       image: linkyard/kubectl:1.14.2
       command: ["tail", "-f", "/dev/null"]
-      imagePullPolicy: Always
       resources:
         requests:
-          memory: "1Gi"
+          memory: "256Mi"
           cpu: "125m"
         limits:
-          memory: "1Gi"
+          memory: "256Mi"
