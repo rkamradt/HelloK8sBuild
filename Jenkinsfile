@@ -33,7 +33,7 @@ pipeline {
             sh "/usr/local/bin/kubectl apply -f helloworld.yaml"
           }
       }
-      stage('Build Image') {
+      stage('Build Test Image') {
           agent {
             kubernetes {
               label 'kaniko'
@@ -52,7 +52,7 @@ pipeline {
                   --destination=registry.container-registry:5000/helloworldtest:latest"
           }
       }
-      stage('Deploy Stage') {
+      stage('Run Test') {
           agent {
             kubernetes {
               label 'kubectl'
