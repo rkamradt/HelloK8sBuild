@@ -6,12 +6,12 @@ pipeline {
               kubernetes {
                 label 'kubectl'
                 idleMinutes 5
-                yamlFile 'kubectl-pod.yaml'
+                yamlFile 'pods/kubectl-pod.yaml'
                 defaultContainer 'kubectl'
               }
             }
             steps {
-              sh "/usr/local/bin/kubectl delete -f helloworld.yaml"
+              sh "/usr/local/bin/kubectl delete -f desc/helloworld.yaml"
             }
         }
     }

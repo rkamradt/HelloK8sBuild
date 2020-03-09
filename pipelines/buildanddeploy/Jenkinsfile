@@ -6,7 +6,7 @@ pipeline {
             kubernetes {
               label 'kaniko'
               idleMinutes 1
-              yamlFile 'build-pod.yaml'
+              yamlFile 'pods/build-pod.yaml'
               defaultContainer 'kaniko'
             }
           }
@@ -25,12 +25,12 @@ pipeline {
             kubernetes {
               label 'kubectl'
               idleMinutes 5
-              yamlFile 'kubectl-pod.yaml'
+              yamlFile 'pods/kubectl-pod.yaml'
               defaultContainer 'kubectl'
             }
           }
           steps {
-            sh "/usr/local/bin/kubectl apply -f helloworld.yaml; sleep 120"
+            sh "/usr/local/bin/kubectl apply -f desc/helloworld.yaml; sleep 120"
           }
       }
       stage('Build Test Image') {
@@ -38,7 +38,7 @@ pipeline {
             kubernetes {
               label 'kaniko'
               idleMinutes 1
-              yamlFile 'build-pod.yaml'
+              yamlFile 'pods/build-pod.yaml'
               defaultContainer 'kaniko'
             }
           }
@@ -57,13 +57,13 @@ pipeline {
             kubernetes {
               label 'kubectl'
               idleMinutes 5
-              yamlFile 'kubectl-pod.yaml'
+              yamlFile 'pods/kubectl-pod.yaml'
               defaultContainer 'kubectl'
             }
           }
           steps {
-            sh "/usr/local/bin/kubectl delete -f helloworldtest.yaml"
-            sh "/usr/local/bin/kubectl apply -f helloworldtest.yaml"
+            sh "/usr/local/bin/kubectl delete -f desc/helloworldtest.yaml"
+            sh "/usr/local/bin/kubectl apply -f desc/helloworldtest.yaml"
             sh "/usr/local/bin/kubectl wait --for=condition=complete --timeout=600s job/helloworldtest"
           }
       }
