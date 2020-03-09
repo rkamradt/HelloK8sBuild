@@ -5,12 +5,13 @@ pipeline {
           agent {
             kubernetes {
               label 'kaniko'
-              idleMinutes 1
+              idleMinutes 10
               yamlFile 'pods/build-pod.yaml'
               defaultContainer 'kaniko'
             }
           }
           steps {
+            sh "rm -rf /kaniko/buildcontext/"
             sh "/kaniko/executor \
                   --context=git://github.com/rkamradt/hellok8s.git#refs/heads/master \
                   --dockerfile=DockerfileHelloworld \
@@ -24,7 +25,7 @@ pipeline {
           agent {
             kubernetes {
               label 'kubectl'
-              idleMinutes 5
+              idleMinutes 10
               yamlFile 'pods/kubectl-pod.yaml'
               defaultContainer 'kubectl'
             }
@@ -37,12 +38,13 @@ pipeline {
           agent {
             kubernetes {
               label 'kaniko'
-              idleMinutes 1
+              idleMinutes 10
               yamlFile 'pods/build-pod.yaml'
               defaultContainer 'kaniko'
             }
           }
           steps {
+            sh "rm -rf /kaniko/buildcontext/"
             sh "/kaniko/executor \
                   --context=git://github.com/rkamradt/hellok8s.git#refs/heads/master \
                   --dockerfile=DockerfileHelloworldTest \
@@ -56,7 +58,7 @@ pipeline {
           agent {
             kubernetes {
               label 'kubectl'
-              idleMinutes 5
+              idleMinutes 10
               yamlFile 'pods/kubectl-pod.yaml'
               defaultContainer 'kubectl'
             }

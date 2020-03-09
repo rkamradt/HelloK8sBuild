@@ -5,7 +5,7 @@ pipeline {
             agent {
               kubernetes {
                 label 'kubectl'
-                idleMinutes 5
+                idleMinutes 10
                 yamlFile 'pods/kubectl-pod.yaml'
                 defaultContainer 'kubectl'
               }
