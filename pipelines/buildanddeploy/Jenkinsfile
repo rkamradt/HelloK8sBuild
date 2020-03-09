@@ -64,7 +64,7 @@ pipeline {
             }
           }
           steps {
-            sh "/usr/local/bin/kubectl delete -f desc/helloworldtest.yaml"
+            sh "/usr/local/bin/kubectl delete --ignore-not-found=true -f desc/helloworldtest.yaml"
             sh "/usr/local/bin/kubectl apply -f desc/helloworldtest.yaml"
             sh "/usr/local/bin/kubectl wait --for=condition=complete --timeout=600s job/helloworldtest"
           }

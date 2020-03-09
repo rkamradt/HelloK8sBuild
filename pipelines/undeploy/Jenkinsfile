@@ -11,7 +11,7 @@ pipeline {
               }
             }
             steps {
-              sh "/usr/local/bin/kubectl delete -f desc/helloworld.yaml"
+              sh "/usr/local/bin/kubectl delete --ignore-not-found=true -f desc/helloworld.yaml"
             }
         }
     }
