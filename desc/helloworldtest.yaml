@@ -1,20 +1,13 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: v1
+kind: Pod
 metadata:
   name: helloworldtest
+  labels:
+    name: helloworldtest
 spec:
-  backoffLimit: 2 # number of retries before throwing error
-  activeDeadlineSeconds: 2400 # time to allow job to run
-  template:
-    metadata:
-      labels:
-        app: helloworldtest
-        tier: job
-    spec:
-      restartPolicy: OnFailure
-      containers:
-        - name: helloworldtest
-          image: 127.0.0.1:32000/helloworldtest:latest
-          env:
-           - name: HELLO_URL
-             value: "http://test-service"
+  containers:
+    - name: helloworldtest
+      image: 127.0.0.1:32000/helloworldtest:latest
+      env:
+       - name: HELLO_URL
+         value: "http://test-service"
