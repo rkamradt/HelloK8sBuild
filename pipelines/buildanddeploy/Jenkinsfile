@@ -43,7 +43,7 @@ pipeline {
             '''
           }
       }
-      stage('Deploy Stage') {
+      stage('Deploy to Dev') {
           agent {
             kubernetes {
               label 'kubectl'
@@ -56,7 +56,7 @@ pipeline {
             sh "/usr/local/bin/kubectl apply -n helloworld-dev -f desc/helloworld.yaml"
           }
       }
-      stage('Run Test') {
+      stage('Run Test in Dev') {
           agent {
             kubernetes {
               label 'kubectl'
@@ -71,6 +71,68 @@ pipeline {
             /usr/local/bin/kubectl wait -n helloworld-dev --for=condition=complete job/helloworldtest
             /usr/local/bin/kubectl logs -n helloworld-dev job/helloworldtest
             /usr/local/bin/kubectl delete -n helloworld-dev job/helloworldtest
+            '''
+          }
+      }
+      stage('Deploy to Test') {
+          agent {
+            kubernetes {
+              label 'kubectl'
+              idleMinutes 10
+              yamlFile 'pods/kubectl-pod.yaml'
+              defaultContainer 'kubectl'
+            }
+          }
+          steps {
+            sh "/usr/local/bin/kubectl apply -n helloworld-test -f desc/helloworld.yaml"
+          }
+      }
+      stage('Run Test in Test') {
+          agent {
+            kubernetes {
+              label 'kubectl'
+              idleMinutes 10
+              yamlFile 'pods/kubectl-pod.yaml'
+              defaultContainer 'kubectl'
+            }
+          }
+          steps {
+            sh '''
+            /usr/local/bin/kubectl apply -n helloworld-test -f desc/helloworldtest.yaml
+            /usr/local/bin/kubectl wait -n helloworld-test --for=condition=complete job/helloworldtest
+            /usr/local/bin/kubectl logs -n helloworld-test job/helloworldtest
+            /usr/local/bin/kubectl delete -n helloworld-test job/helloworldtest
+            '''
+          }
+      }
+      stage('Deploy to Prod') {
+          agent {
+            kubernetes {
+              label 'kubectl'
+              idleMinutes 10
+              yamlFile 'pods/kubectl-pod.yaml'
+              defaultContainer 'kubectl'
+            }
+          }
+          steps {
+            sh "/usr/local/bin/kubectl apply -n helloworld-prod -f desc/helloworld.yaml"
+          }
+      }
+      stage('Run Test in Prod') {
+          agent {
+            kubernetes {
+              label 'kubectl'
+              idleMinutes 10
+              yamlFile 'pods/kubectl-pod.yaml'
+              defaultContainer 'kubectl'
+            }
+          }
+          steps {
+            sh '''
+            /usr/local/bin/kubectl apply -n helloworld-prod -f desc/helloworldtest.yaml
+            /usr/local/bin/kubectl wait -n helloworld-prod --for=condition=complete job/helloworldtest
+            /usr/local/bin/kubectl logs -n helloworld-prod job/helloworldtest
+            /usr/local/bin/kubectl delete -n helloworld-prod job/helloworldtest
             '''
           }
       }
