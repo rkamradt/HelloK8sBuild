@@ -22,19 +22,6 @@ pipeline {
             '''
           }
       }
-      stage('Deploy Stage') {
-          agent {
-            kubernetes {
-              label 'kubectl'
-              idleMinutes 10
-              yamlFile 'pods/kubectl-pod.yaml'
-              defaultContainer 'kubectl'
-            }
-          }
-          steps {
-            sh "/usr/local/bin/kubectl apply -f desc/helloworld.yaml"
-          }
-      }
       stage('Build Test Image') {
           agent {
             kubernetes {
@@ -56,6 +43,19 @@ pipeline {
             '''
           }
       }
+      stage('Deploy Stage') {
+          agent {
+            kubernetes {
+              label 'kubectl'
+              idleMinutes 10
+              yamlFile 'pods/kubectl-pod.yaml'
+              defaultContainer 'kubectl'
+            }
+          }
+          steps {
+            sh "/usr/local/bin/kubectl apply -n helloworld-dev -f desc/helloworld.yaml"
+          }
+      }
       stage('Run Test') {
           agent {
             kubernetes {
@@ -67,10 +67,10 @@ pipeline {
           }
           steps {
             sh '''
-            /usr/local/bin/kubectl apply -f desc/helloworldtest.yaml
-            /usr/local/bin/kubectl wait --for=condition=complete job/helloworldtest
-            /usr/local/bin/kubectl logs job/helloworldtest
-            /usr/local/bin/kubectl delete job/helloworldtest
+            /usr/local/bin/kubectl apply -n helloworld-dev -f desc/helloworldtest.yaml
+            /usr/local/bin/kubectl wait -n helloworld-dev --for=condition=complete job/helloworldtest
+            /usr/local/bin/kubectl logs -n helloworld-dev job/helloworldtest
+            /usr/local/bin/kubectl delete -n helloworld-dev job/helloworldtest
             '''
           }
       }
