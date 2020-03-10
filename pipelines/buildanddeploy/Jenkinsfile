@@ -12,7 +12,6 @@ pipeline {
           }
           steps {
             sh '''
-              ls /kaniko
               rm -rf /kaniko/buildcontext
               mkdir /kaniko/buildcontext
               /kaniko/executor \
@@ -49,7 +48,6 @@ pipeline {
           }
           steps {
             sh '''
-              ls /kaniko
               rm -rf /kaniko/buildcontext
               mkdir /kaniko/buildcontext
               /kaniko/executor \
