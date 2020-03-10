@@ -42,7 +42,7 @@ pipeline {
             kubernetes {
               label 'kaniko2'
               idleMinutes 10
-              yamlFile 'pods/build-pod.yaml'
+              yamlFile 'pods/build-pod2.yaml'
               defaultContainer 'kaniko2'
             }
           }
