@@ -40,16 +40,14 @@ pipeline {
       stage('Build Test Image') {
           agent {
             kubernetes {
-              label 'kaniko'
+              label 'kaniko2'
               idleMinutes 10
               yamlFile 'pods/build-pod.yaml'
-              defaultContainer 'kaniko'
+              defaultContainer 'kaniko2'
             }
           }
           steps {
             sh '''
-              rm -rf /kaniko/buildcontext
-              mkdir /kaniko/buildcontext
               /kaniko/executor \
                   --context=git://github.com/rkamradt/hellok8s.git#refs/heads/master \
                   --dockerfile=DockerfileHelloworldTest \
