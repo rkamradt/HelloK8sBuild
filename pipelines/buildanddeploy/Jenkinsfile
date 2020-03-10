@@ -11,7 +11,7 @@ pipeline {
             }
           }
           steps {
-            sh "rm -rf /kaniko/buildcontext/*"
+            sh "rm -rf /kaniko/buildcontext/"
             sh "/kaniko/executor \
                   --context=git://github.com/rkamradt/hellok8s.git#refs/heads/master \
                   --dockerfile=DockerfileHelloworld \
@@ -44,7 +44,8 @@ pipeline {
             }
           }
           steps {
-            sh "rm -rf /kaniko/buildcontext/*"
+            sh "rm -rf /kaniko/buildcontext/"
+            sh "mkdir /kaniko/buildcontext"
             sh "/kaniko/executor \
                   --context=git://github.com/rkamradt/hellok8s.git#refs/heads/master \
                   --dockerfile=DockerfileHelloworldTest \
