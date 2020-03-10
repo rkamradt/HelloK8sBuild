@@ -68,8 +68,9 @@ pipeline {
           steps {
             sh '''
             /usr/local/bin/kubectl delete --ignore-not-found=true pod/helloworldtest
-            /usr/local/bin/kubectl apply --wait -f desc/helloworldtest.yaml
-            /usr/local/bin/kubectl logs pod/helloworldtest
+            /usr/local/bin/kubectl apply -f desc/helloworldtest.yaml
+            /usr/local/bin/kubectl wait --for=condition=complete job/helloworldtest
+            /usr/local/bin/kubectl logs job/helloworldtest
             '''
           }
       }
