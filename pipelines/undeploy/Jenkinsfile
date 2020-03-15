@@ -11,7 +11,7 @@ pipeline {
               }
             }
             steps {
-              sh "/usr/local/bin/kubectl delete -n ${params.PROJECTNAME}-${params.NAMESPACE} deployment ${params.DEPLOYMENTNAME}"
+              sh "/usr/local/bin/kubectl delete -n helloworld-${params.NAMESPACE} -f ${params.DEPLOYMENTNAME}.yaml"
             }
         }
     }
