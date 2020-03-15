@@ -3,18 +3,18 @@ kind: Deployment
 metadata:
   name: helloworld
   labels:
-    app: test
+    app: helloworld
 spec:
   selector:
     matchLabels:
-      app: test
+      app: helloworld
   template:
     metadata:
       labels:
-        app: test
+        app: helloworld
     spec:
       containers:
-      - name: test
+      - name: helloworld
         image: 127.0.0.1:32000/helloworld:latest
         ports:
         - containerPort: 8080
@@ -26,7 +26,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: test
+    app: helloworld
   ports:
   - port: 80
     targetPort: 8080
