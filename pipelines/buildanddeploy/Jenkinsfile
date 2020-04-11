@@ -67,6 +67,7 @@ pipeline {
           }
           steps {
             sh '''
+            /usr/local/bin/kubectl delete --ignore-not-found=true job/helloworldtest
             /usr/local/bin/kubectl apply -n helloworld-dev -f desc/helloworldtest.yaml
             /usr/local/bin/kubectl wait -n helloworld-dev --for=condition=Ready job/helloworldtest
             /usr/local/bin/kubectl logs -n helloworld-dev -f job/helloworldtest
@@ -98,6 +99,7 @@ pipeline {
           }
           steps {
             sh '''
+            /usr/local/bin/kubectl delete --ignore-not-found=true job/helloworldtest
             /usr/local/bin/kubectl apply -n helloworld-test -f desc/helloworldtest.yaml
             /usr/local/bin/kubectl wait -n helloworld-test --for=condition=Ready job/helloworldtest
             /usr/local/bin/kubectl logs -n helloworld-test -f job/helloworldtest
@@ -129,6 +131,7 @@ pipeline {
           }
           steps {
             sh '''
+            /usr/local/bin/kubectl delete --ignore-not-found=true job/helloworldtest
             /usr/local/bin/kubectl apply -n helloworld-prod -f desc/helloworldtest.yaml
             /usr/local/bin/kubectl wait -n helloworld-prod --for=condition=Ready job/helloworldtest
             /usr/local/bin/kubectl logs -n helloworld-prod -f job/helloworldtest
