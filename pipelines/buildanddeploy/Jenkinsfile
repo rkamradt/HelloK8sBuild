@@ -46,6 +46,7 @@ pipeline {
       stage('Deploy to Dev') {
           agent {
             kubernetes {
+              cloud 'clustervm2'
               label 'kubectl'
               idleMinutes 10
               yamlFile 'pods/kubectl-pod.yaml'
@@ -59,6 +60,7 @@ pipeline {
       stage('Run Test in Dev') {
           agent {
             kubernetes {
+              cloud 'clustervm2'
               label 'kubectl'
               idleMinutes 10
               yamlFile 'pods/kubectl-pod.yaml'
@@ -78,6 +80,7 @@ pipeline {
       stage('Deploy to Test') {
           agent {
             kubernetes {
+              cloud 'clustervm2'
               label 'kubectl'
               idleMinutes 10
               yamlFile 'pods/kubectl-pod.yaml'
@@ -91,6 +94,7 @@ pipeline {
       stage('Run Test in Test') {
           agent {
             kubernetes {
+              cloud 'clustervm2'
               label 'kubectl'
               idleMinutes 10
               yamlFile 'pods/kubectl-pod.yaml'
@@ -110,6 +114,7 @@ pipeline {
       stage('Deploy to Prod') {
           agent {
             kubernetes {
+              cloud 'clustervm2'
               label 'kubectl'
               idleMinutes 10
               yamlFile 'pods/kubectl-pod.yaml'
@@ -123,6 +128,7 @@ pipeline {
       stage('Run Test in Prod') {
           agent {
             kubernetes {
+              cloud 'clustervm2'
               label 'kubectl'
               idleMinutes 10
               yamlFile 'pods/kubectl-pod.yaml'
