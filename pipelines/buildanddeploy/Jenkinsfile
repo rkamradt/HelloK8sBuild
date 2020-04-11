@@ -3,7 +3,7 @@ pipeline {
     stages {
       stage('Build Image') {
           agent {
-            clustervm2 {
+            kubernetes {
               label 'kaniko'
               idleMinutes 1
               yamlFile 'pods/build-pod.yaml'
@@ -24,7 +24,7 @@ pipeline {
       }
       stage('Build Test Image') {
           agent {
-            clustervm2 {
+            kubernetes {
               label 'kaniko2'
               idleMinutes 1
               yamlFile 'pods/build-pod2.yaml'
@@ -45,7 +45,7 @@ pipeline {
       }
       stage('Deploy to Dev') {
           agent {
-            clustervm2 {
+            kubernetes {
               label 'kubectl'
               idleMinutes 10
               yamlFile 'pods/kubectl-pod.yaml'
@@ -58,7 +58,7 @@ pipeline {
       }
       stage('Run Test in Dev') {
           agent {
-            clustervm2 {
+            kubernetes {
               label 'kubectl'
               idleMinutes 10
               yamlFile 'pods/kubectl-pod.yaml'
@@ -76,7 +76,7 @@ pipeline {
       }
       stage('Deploy to Test') {
           agent {
-            clustervm2 {
+            kubernetes {
               label 'kubectl'
               idleMinutes 10
               yamlFile 'pods/kubectl-pod.yaml'
@@ -89,7 +89,7 @@ pipeline {
       }
       stage('Run Test in Test') {
           agent {
-            clustervm2 {
+            kubernetes {
               label 'kubectl'
               idleMinutes 10
               yamlFile 'pods/kubectl-pod.yaml'
@@ -107,7 +107,7 @@ pipeline {
       }
       stage('Deploy to Prod') {
           agent {
-            clustervm2 {
+            kubernetes {
               label 'kubectl'
               idleMinutes 10
               yamlFile 'pods/kubectl-pod.yaml'
@@ -120,7 +120,7 @@ pipeline {
       }
       stage('Run Test in Prod') {
           agent {
-            clustervm2 {
+            kubernetes {
               label 'kubectl'
               idleMinutes 10
               yamlFile 'pods/kubectl-pod.yaml'
