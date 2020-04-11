@@ -68,8 +68,8 @@ pipeline {
           steps {
             sh '''
             /usr/local/bin/kubectl apply -n helloworld-dev -f desc/helloworldtest.yaml
-            /usr/local/bin/kubectl wait -n helloworld-dev --for=condition=complete job/helloworldtest
-            /usr/local/bin/kubectl logs -n helloworld-dev job/helloworldtest
+            /usr/local/bin/kubectl wait -n helloworld-dev --for=condition=Ready job/helloworldtest
+            /usr/local/bin/kubectl logs -n helloworld-dev -f job/helloworldtest
             /usr/local/bin/kubectl delete -n helloworld-dev job/helloworldtest
             '''
           }
@@ -99,8 +99,8 @@ pipeline {
           steps {
             sh '''
             /usr/local/bin/kubectl apply -n helloworld-test -f desc/helloworldtest.yaml
-            /usr/local/bin/kubectl wait -n helloworld-test --for=condition=complete job/helloworldtest
-            /usr/local/bin/kubectl logs -n helloworld-test job/helloworldtest
+            /usr/local/bin/kubectl wait -n helloworld-test --for=condition=Ready job/helloworldtest
+            /usr/local/bin/kubectl logs -n helloworld-test -f job/helloworldtest
             /usr/local/bin/kubectl delete -n helloworld-test job/helloworldtest
             '''
           }
@@ -130,8 +130,8 @@ pipeline {
           steps {
             sh '''
             /usr/local/bin/kubectl apply -n helloworld-prod -f desc/helloworldtest.yaml
-            /usr/local/bin/kubectl wait -n helloworld-prod --for=condition=complete job/helloworldtest
-            /usr/local/bin/kubectl logs -n helloworld-prod job/helloworldtest
+            /usr/local/bin/kubectl wait -n helloworld-prod --for=condition=Ready job/helloworldtest
+            /usr/local/bin/kubectl logs -n helloworld-prod -f job/helloworldtest
             /usr/local/bin/kubectl delete -n helloworld-prod job/helloworldtest
             '''
           }
